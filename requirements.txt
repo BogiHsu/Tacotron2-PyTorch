@@ -1,0 +1,8 @@
+numpy
+scipy
+pytorch
+inflect
+librosa
+Unidecode
+matplotlib
+tensorboardX
