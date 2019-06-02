@@ -3,8 +3,9 @@ from text import symbols
 
 class hparams:
 	################################
-	# Data Parameters             #
+	# Data Parameters              #
 	################################
+	max_input = 140 # drop long text input
 	text_cleaners=['english_cleaners']
 
 	################################
@@ -55,13 +56,13 @@ class hparams:
 	################################
 	# Train                        #
 	################################
-	is_cuda = True
-	n_workers = 8
+	is_cuda = False#True
+	n_workers = 0
 	lr = 1e-3
 	wu = True
 	wu_step = 4000
 	max_iter = 2e5
-	batch_size = 64
+	batch_size = 32
 	iters_per_log = 500
 	iters_per_sample = 5000
 	iters_per_ckpt = 5000

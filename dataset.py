@@ -16,6 +16,8 @@ def files_to_list(fdir):
 		for line in f:
 			parts = line.strip().split('|')
 			wav_path = os.path.join(fdir, 'wavs', '%s.wav' % parts[0])
+			if len(parts[1]) >= hps.max_input:
+				continue
 			f_list.append([wav_path, parts[1]])
 	return f_list
 
