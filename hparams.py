@@ -56,16 +56,17 @@ class hparams:
 	################################
 	# Train                        #
 	################################
-	is_cuda = False#True
-	n_workers = 0
+	is_cuda = True
+	pin_mem = True
+	n_workers = 16
 	lr = 1e-3
 	wu = True
 	wu_step = 4000
 	max_iter = 2e5
 	batch_size = 32
-	iters_per_log = 500
-	iters_per_sample = 5000
-	iters_per_ckpt = 5000
+	iters_per_log = 50
+	iters_per_sample = 1000
+	iters_per_ckpt = 1000
 	weight_decay = 1e-6
 	grad_clip_thresh = 1.0
 	mask_padding = True

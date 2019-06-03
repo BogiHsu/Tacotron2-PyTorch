@@ -19,7 +19,7 @@ def prepare_dataloaders(fdir):
 	trainset = ljdataset(fdir)
 	collate_fn = ljcollate(hps.n_frames_per_step)
 	train_loader = DataLoader(trainset, num_workers = hps.n_workers, shuffle = True,
-							  batch_size = hps.batch_size, pin_memory = True,
+							  batch_size = hps.batch_size, pin_memory = hps.pin_mem,
 							  drop_last = True, collate_fn = collate_fn)
 	return train_loader
 
@@ -41,7 +41,7 @@ def save_checkpoint(model, optimizer, iteration, ckpt_pth):
 def train(args):
 	# build model
 	model = Tacotron2()
-	mode(model)
+	mode(model, True)
 	optimizer = torch.optim.Adam(model.parameters(), lr = hps.lr, weight_decay = hps.weight_decay)
 	criterion = Tacotron2Loss()
 	
@@ -63,9 +63,10 @@ def train(args):
 	train_loader = prepare_dataloaders(args.data_dir)
 	
 	# get logger ready
-	if args.log_dir != '' and not os.path.isdir(args.log_dir):
-		os.makedirs(args.log_dir)
-		os.chmod(args.log_dir, 0o775)
+	if args.log_dir != '':
+		if not os.path.isdir(args.log_dir):
+			os.makedirs(args.log_dir)
+			os.chmod(args.log_dir, 0o775)
 		logger = Tacotron2Logger(args.log_dir)
 
 	# get ckpt_dir ready
@@ -103,11 +104,12 @@ def train(args):
 			
 			# log
 			if args.log_dir != '' and (iteration % hps.iters_per_log == 0):
+				learning_rate = optimizer.param_groups[0]['lr']
 				logger.log_training(loss.item(), grad_norm, learning_rate, dur, iteration)
 			
 			# save ckpt
 			if args.ckpt_dir != '' and (iteration % hps.iters_per_ckpt == 0):
-				ckpt_pth = os.path.join(hps.ckpt_dir, 'ckpt_{}'.format(iteration))
+				ckpt_pth = os.path.join(args.ckpt_dir, 'ckpt_{}'.format(iteration))
 				save_checkpoint(model, optimizer, iteration, ckpt_pth)
 
 			iteration += 1
