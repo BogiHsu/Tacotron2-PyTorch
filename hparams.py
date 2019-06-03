@@ -35,7 +35,7 @@ class hparams:
 
 	# Decoder parameters
 	n_frames_per_step = 1
-	decoder_rnn_dim = 256 # 1024
+	decoder_rnn_dim = 512 # 1024
 	prenet_dim = 128 # 256
 	max_decoder_steps = 1000
 	gate_threshold = 0.5
@@ -43,7 +43,7 @@ class hparams:
 	p_decoder_dropout = 0.1
 
 	# Attention parameters
-	attention_rnn_dim = 256 # 1024
+	attention_rnn_dim = 512 # 1024
 	attention_dim = 256 # 128
 
 	# Location Layer parameters
@@ -61,15 +61,15 @@ class hparams:
 	is_cuda = True
 	pin_mem = True
 	n_workers = 8
-	lr = 2e-3
-	wu = True
+	lr = 1e-3
+	wu = False
 	wu_step = 4000
 	max_iter = 2e5
 	batch_size = 32
 	iters_per_log = 50
 	iters_per_sample = 100
 	iters_per_ckpt = 1000
-	weight_decay = 0.0
+	weight_decay = 1e-6
 	grad_clip_thresh = 1.0
 	mask_padding = True
 	eg_text = 'Tacotron is awesome!'
