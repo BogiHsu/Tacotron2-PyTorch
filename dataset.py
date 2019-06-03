@@ -3,7 +3,6 @@ import torch
 import random
 import numpy as np
 import torch.utils.data
-from utils import to_var
 from text import text_to_sequence
 from hparams import hparams as hps
 from audio import load_wav, melspectrogram

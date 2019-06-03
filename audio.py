@@ -39,12 +39,18 @@ def spectrogram(y):
 def inv_spectrogram(spectrogram):
 	'''Converts spectrogram to waveform using librosa'''
 	S = _db_to_amp(_denormalize(spectrogram) + hps.ref_level_db)	# Convert back to linear
-	return inv_preemphasis(_griffin_lim(S ** hps.power))					# Reconstruct phase
+	return inv_preemphasis(_griffin_lim(S ** hps.power))			# Reconstruct phase
 
 def melspectrogram(y):
 	D = _stft(preemphasis(y))
 	S = _amp_to_db(_linear_to_mel(np.abs(D))) - hps.ref_level_db
 	return _normalize(S)
+
+
+def inv_melspectrogram(spectrogram):
+	mel = _db_to_amp(_denormalize(spectrogram) + hps.ref_level_db)
+	S = _mel_to_linear(mel)
+	return inv_preemphasis(_griffin_lim(S ** hps.power))
 
 
 def find_endpoint(wav, threshold_db=-40, min_silence_sec=0.8):
@@ -64,7 +70,7 @@ def _griffin_lim(S):
 	angles = np.exp(2j * np.pi * np.random.rand(*S.shape))
 	S_complex = np.abs(S).astype(np.complex)
 	y = _istft(S_complex * angles)
-	for i in range(hps.griffin_lim_iters):
+	for i in range(hps.gl_iters):
 		angles = np.exp(1j * np.angle(_stft(y)))
 		y = _istft(S_complex * angles)
 	return y
@@ -96,6 +102,17 @@ def _linear_to_mel(spectrogram):
 	if _mel_basis is None:
 		_mel_basis = _build_mel_basis()
 	return np.dot(_mel_basis, spectrogram)
+	
+
+def _mel_to_linear(spectrogram):
+	global _mel_basis
+	if _mel_basis is None:
+		_mel_basis = _build_mel_basis()
+	inv_mel_basis = np.linalg.pinv(_mel_basis)
+	inverse = np.dot(inv_mel_basis, spectrogram)
+	inverse = np.maximum(1e-10, inverse)
+	return inverse
+
 
 def _build_mel_basis():
 	n_fft = (hps.num_freq - 1) * 2

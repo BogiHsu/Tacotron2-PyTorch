@@ -4,7 +4,7 @@ import math
 import torch
 import argparse
 import numpy as np
-from audio import save_wav
+from inference import infer
 from utils import mode, to_arr
 from logger import Tacotron2Logger
 from hparams import hparams as hps
@@ -105,7 +105,14 @@ def train(args):
 			# log
 			if args.log_dir != '' and (iteration % hps.iters_per_log == 0):
 				learning_rate = optimizer.param_groups[0]['lr']
-				logger.log_training(loss.item(), grad_norm, learning_rate, dur, iteration)
+				logger.log_training(loss.item(), grad_norm, learning_rate, iteration)
+			
+			# log
+			if args.log_dir != '' and (iteration % hps.iters_per_sample == 0):
+				model.eval()
+				output = infer(hps.eg_text, model)
+				model.train()
+				logger.sample_training(output, iteration)
 			
 			# save ckpt
 			if args.ckpt_dir != '' and (iteration % hps.iters_per_ckpt == 0):
