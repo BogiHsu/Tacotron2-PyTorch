@@ -11,10 +11,10 @@ class hparams:
 	# Audio                        #
 	################################
 	num_mels = 80
-	num_freq = 1025
-	sample_rate = 16000
-	frame_length_ms = 50
-	frame_shift_ms = 12.5
+	num_freq = 513
+	sample_rate = 22050
+	frame_length_ms = 1000*1024/22050
+	frame_shift_ms = 1000*256/22050
 	preemphasis = 0.97
 	min_level_db = -100
 	ref_level_db = 20
@@ -59,7 +59,7 @@ class hparams:
 	################################
 	is_cuda = True
 	pin_mem = True
-	n_workers = 8
+	n_workers = 3
 	lr = 1e-3
 	wu = False
 	wu_step = 4000

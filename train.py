@@ -137,5 +137,5 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	
 	torch.backends.cudnn.enabled = True
-	torch.backends.cudnn.benchmark = True
+	torch.backends.cudnn.benchmark = False
 	train(args)
