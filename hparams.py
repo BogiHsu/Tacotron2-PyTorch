@@ -25,16 +25,16 @@ class hparams:
 	# Model Parameters             #
 	################################
 	n_symbols = len(symbols)
-	symbols_embedding_dim = 512
+	symbols_embedding_dim = 256 # 512
 
 	# Encoder parameters
 	encoder_kernel_size = 5
 	encoder_n_convolutions = 3
-	encoder_embedding_dim = 512
+	encoder_embedding_dim = 256 # 512
 
 	# Decoder parameters
 	n_frames_per_step = 1
-	decoder_rnn_dim = 1024
+	decoder_rnn_dim = 512 # 1024
 	prenet_dim = 256
 	max_decoder_steps = 1000
 	gate_threshold = 0.5
@@ -42,7 +42,7 @@ class hparams:
 	p_decoder_dropout = 0.1
 
 	# Attention parameters
-	attention_rnn_dim = 1024
+	attention_rnn_dim = 512 # 1024
 	attention_dim = 128
 
 	# Location Layer parameters
@@ -65,10 +65,11 @@ class hparams:
 	wu_step = 4000
 	max_iter = 2e5
 	batch_size = 32
-	iters_per_log = 50
-	iters_per_sample = 100
+	iters_per_log = 10
+	iters_per_sample = 500
 	iters_per_ckpt = 1000
 	weight_decay = 1e-6
 	grad_clip_thresh = 1.0
 	mask_padding = True
+	p = 10 # mel spec loss penalty
 	eg_text = 'Tacotron is awesome!'

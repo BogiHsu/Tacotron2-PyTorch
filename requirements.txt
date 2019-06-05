@@ -1,6 +1,6 @@
 numpy
 scipy
-pytorch
+pillow
 inflect
 librosa
 Unidecode
