@@ -12,7 +12,7 @@ class Tacotron2Loss(nn.Module):
 	def __init__(self):
 		super(Tacotron2Loss, self).__init__()
 
-	def forward(self, model_output, targets):
+	def forward(self, model_output, targets, iteration):
 		mel_target, gate_target = targets[0], targets[1]
 		mel_target.requires_grad = False
 		gate_target.requires_grad = False
@@ -20,8 +20,10 @@ class Tacotron2Loss(nn.Module):
 
 		mel_out, mel_out_postnet, gate_out, _ = model_output
 		gate_out = gate_out.view(-1, 1)
-		mel_loss = nn.MSELoss()(hps.p*mel_out, hps.p*mel_target) + \
-			nn.MSELoss()(hps.p*mel_out_postnet, hps.p*mel_target)
+		p = hps.p if iteration < hps.sch_step else hps.p*max((1-(iteration-hps.sch_step)/hps.p_decay), 1/hps.p)
+		assert hps.p >= p >= 1
+		mel_loss = nn.MSELoss()(p*mel_out, p*mel_target) + \
+			nn.MSELoss()(p*mel_out_postnet, p*mel_target)
 		gate_loss = nn.BCEWithLogitsLoss()(gate_out, gate_target)
 		return mel_loss + gate_loss
 

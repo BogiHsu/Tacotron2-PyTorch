@@ -12,9 +12,9 @@ class hparams:
 	################################
 	num_mels = 80
 	num_freq = 513
-	sample_rate = 22050
-	frame_length_ms = 1000*1024/22050
-	frame_shift_ms = 1000*256/22050
+	sample_rate = 16000
+	frame_length_ms = 50
+	frame_shift_ms = 12.5
 	preemphasis = 0.97
 	min_level_db = -100
 	ref_level_db = 20
@@ -61,8 +61,8 @@ class hparams:
 	pin_mem = True
 	n_workers = 3
 	lr = 1e-3
-	wu = False
-	wu_step = 4000
+	sch = True
+	sch_step = 5e4
 	max_iter = 2e5
 	batch_size = 32
 	iters_per_log = 10
@@ -72,4 +72,5 @@ class hparams:
 	grad_clip_thresh = 1.0
 	mask_padding = True
 	p = 10 # mel spec loss penalty
-	eg_text = 'Tacotron is awesome!'
+	p_decay = 5e4
+	eg_text = 'Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy was not very fuzzy, was he?'

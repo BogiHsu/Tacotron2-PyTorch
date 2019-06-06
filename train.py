@@ -52,8 +52,8 @@ def train(args):
 		iteration += 1 # next iteration is iteration+1
 	
 	# get scheduler
-	if hps.wu:
-		lr_lambda = lambda step: hps.wu_step**0.5*np.minimum((step+1)*hps.wu_step**-1.5, (step+1)**-0.5)
+	if hps.sch:
+		lr_lambda = lambda step: (1e-2)**max(min((step/(2*hps.sch_step))-0.5, 1), 0)
 		if args.ckpt_pth != '':
 			scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda, last_epoch = iteration)
 		else:
@@ -85,7 +85,7 @@ def train(args):
 			y_pred = model(x)
 
 			# loss
-			loss = criterion(y_pred, y)
+			loss = criterion(y_pred, y, iteration)
 			
 			# zero grad
 			model.zero_grad()
@@ -94,7 +94,7 @@ def train(args):
 			loss.backward()
 			grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), hps.grad_clip_thresh)
 			optimizer.step()
-			if hps.wu:
+			if hps.sch:
 				scheduler.step()
 			
 			# info
