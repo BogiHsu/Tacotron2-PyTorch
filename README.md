@@ -1,5 +1,5 @@
 # Tacotron2-PyTorch
-Yet another implementation of Tacotron2. Highly based on [these](#References). The codes are executable but still work in progress.
+Yet another implementation of Tacotron2. Highly based on [these](#References).
 
 ## Requirements
 - Python >= 3.5.2
