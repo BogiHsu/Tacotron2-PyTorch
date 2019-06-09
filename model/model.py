@@ -16,7 +16,8 @@ class Tacotron2Loss(nn.Module):
 		mel_target, gate_target = targets[0], targets[1]
 		mel_target.requires_grad = False
 		gate_target.requires_grad = False
-		gate_target = gate_target.view(-1, 1)
+		slice = torch.arange(0, gate_target.size(1), hps.n_frames_per_step)
+		gate_target = gate_target[:, slice].view(-1, 1)
 
 		mel_out, mel_out_postnet, gate_out, _ = model_output
 		gate_out = gate_out.view(-1, 1)
@@ -25,7 +26,7 @@ class Tacotron2Loss(nn.Module):
 		mel_loss = nn.MSELoss()(p*mel_out, p*mel_target) + \
 			nn.MSELoss()(p*mel_out_postnet, p*mel_target)
 		gate_loss = nn.BCEWithLogitsLoss()(gate_out, gate_target)
-		return mel_loss + gate_loss
+		return mel_loss+gate_loss, (mel_loss/(p**2)+gate_loss).item()
 
 
 class LocationLayer(nn.Module):
@@ -321,7 +322,7 @@ class Decoder(nn.Module):
 
 		'''
 		# (B, num_mels, T_out) -> (B, T_out, num_mels)
-		decoder_inputs = decoder_inputs.transpose(1, 2)
+		decoder_inputs = decoder_inputs.transpose(1, 2).contiguous()
 		decoder_inputs = decoder_inputs.view(
 			decoder_inputs.size(0),
 			int(decoder_inputs.size(1)/self.n_frames_per_step), -1)
@@ -507,13 +508,14 @@ class Tacotron2(nn.Module):
 
 	def parse_output(self, outputs, output_lengths=None):
 		if self.mask_padding and output_lengths is not None:
-			mask = ~get_mask_from_lengths(output_lengths)
-			mask = mask.expand(self.num_mels, mask.size(0), mask.size(1))
-			mask = mask.permute(1, 0, 2)
-
-			outputs[0].data.masked_fill_(mask, 0.0)
-			outputs[1].data.masked_fill_(mask, 0.0)
-			outputs[2].data.masked_fill_(mask[:, 0, :], 1e3)  # gate energies
+			mask = ~get_mask_from_lengths(output_lengths, True) # (B, T)
+			mask = mask.expand(self.num_mels, mask.size(0), mask.size(1)) # (80, B, T)
+			mask = mask.permute(1, 0, 2) # (B, 80, T)
+			
+			outputs[0].data.masked_fill_(mask, 0.0) # (B, 80, T)
+			outputs[1].data.masked_fill_(mask, 0.0) # (B, 80, T)
+			slice = torch.arange(0, mask.size(2), self.n_frames_per_step)
+			outputs[2].data.masked_fill_(mask[:, 0, slice], 1e3)  # gate energies (B, T//5)
 
 		return outputs
 

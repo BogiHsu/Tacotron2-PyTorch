@@ -85,7 +85,7 @@ def train(args):
 			y_pred = model(x)
 
 			# loss
-			loss = criterion(y_pred, y, iteration)
+			loss, item = criterion(y_pred, y, iteration)
 			
 			# zero grad
 			model.zero_grad()
@@ -100,12 +100,12 @@ def train(args):
 			# info
 			dur = time.perf_counter()-start
 			print('Iter: {} Loss: {:.2e} Grad Norm: {:.2e} {:.1f}s/it'.format(
-				iteration, loss.item(), grad_norm, dur))
+				iteration, item, grad_norm, dur))
 			
 			# log
 			if args.log_dir != '' and (iteration % hps.iters_per_log == 0):
 				learning_rate = optimizer.param_groups[0]['lr']
-				logger.log_training(loss.item(), grad_norm, learning_rate, iteration)
+				logger.log_training(item, grad_norm, learning_rate, iteration)
 			
 			# log
 			if args.log_dir != '' and (iteration % hps.iters_per_sample == 0):

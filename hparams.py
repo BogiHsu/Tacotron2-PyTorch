@@ -33,7 +33,7 @@ class hparams:
 	encoder_embedding_dim = 256 # 512
 
 	# Decoder parameters
-	n_frames_per_step = 1
+	n_frames_per_step = 5
 	decoder_rnn_dim = 512 # 1024
 	prenet_dim = 256
 	max_decoder_steps = 1000
@@ -73,4 +73,4 @@ class hparams:
 	mask_padding = True
 	p = 10 # mel spec loss penalty
 	p_decay = 5e4
-	eg_text = 'Fuzzy Wuzzy was a bear. Fuzzy Wuzzy had no hair. Fuzzy Wuzzy was not very fuzzy, was he?'
+	eg_text = 'Make America great again!'
