@@ -42,6 +42,9 @@ You can find alinment images and synthesized audio clips during training. Record
 ## Inference
 Work in progress.
 
+## Vocoder
+Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel-spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
+
 ## TODO
 - [x] LJSpeech dataloader.
 - [x] Reduce factor.
