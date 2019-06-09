@@ -14,7 +14,7 @@ Yet another implementation of Tacotron2. The codes are executable but still work
 - tensorboardX
 
 ## Preprocessing
-Currently only support LJSpeech dataset. No need to preprocess if you use the dataset with 22050 sample rate.
+Currently only support LJSpeech dataset. No need to do preprocessing if you use the dataset with 22050 sample rate.
 
 For traing with different sample rate, you should deal with the audio files yourself and modified `hparams.py`.
 
