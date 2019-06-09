@@ -1,5 +1,5 @@
 # Tacotron2-PyTorch
-Yet another implementation of Tacotron2. The codes are executable but still work in progress.
+Yet another implementation of Tacotron2. Highly based on [these](#References). The codes are executable but still work in progress.
 
 ## Requirements
 - Python >= 3.5.2
@@ -52,7 +52,7 @@ Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram
 - [ ] Add some samples and training detail.
 - [ ] Add pretrained vocoder.
 
-## Reference
+## References
 This project is highly based on the works below.
 - [Tacotron2 implement by NVIDIA](https://github.com/NVIDIA/tacotron2)
 - [Tacotron implement by r9y9](https://github.com/r9y9/tacotron_pytorch)
