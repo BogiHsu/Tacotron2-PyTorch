@@ -1,5 +1,5 @@
 # Tacotron2-PyTorch
-Yet another implementation of Tacotron2 and GST-Tacotron. The codes are executable but still work in progress.
+Yet another implementation of Tacotron2. The codes are executable but still work in progress.
 
 ## Requirements
 - Python >= 3.5.2
