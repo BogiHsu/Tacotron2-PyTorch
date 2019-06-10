@@ -33,7 +33,7 @@ class hparams:
 	encoder_embedding_dim = 256 # 512
 
 	# Decoder parameters
-	n_frames_per_step = 2
+	n_frames_per_step = 3
 	decoder_rnn_dim = 512 # 1024
 	prenet_dim = 256
 	max_decoder_steps = 1000
@@ -43,7 +43,7 @@ class hparams:
 
 	# Attention parameters
 	attention_rnn_dim = 512 # 1024
-	attention_dim = 256
+	attention_dim = 256 # 128
 
 	# Location Layer parameters
 	attention_location_n_filters = 32
@@ -61,6 +61,8 @@ class hparams:
 	pin_mem = True
 	n_workers = 8
 	lr = 2e-3
+	betas = (0.9, 0.999)
+	eps = 1e-6
 	sch = True
 	sch_step = 4000
 	max_iter = 2e5

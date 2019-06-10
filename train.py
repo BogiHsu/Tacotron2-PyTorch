@@ -41,7 +41,9 @@ def train(args):
 	# build model
 	model = Tacotron2()
 	mode(model, True)
-	optimizer = torch.optim.Adam(model.parameters(), lr = hps.lr, weight_decay = hps.weight_decay)
+	optimizer = torch.optim.Adam(model.parameters(), lr = hps.lr,
+								betas = hps.betas, eps = hps.eps,
+								weight_decay = hps.weight_decay)
 	criterion = Tacotron2Loss()
 	
 	# load checkpoint
