@@ -1,5 +1,6 @@
 # Tacotron2-PyTorch
-Yet another implementation of Tacotron2. Highly based on [these](#References).
+Yet another PyTorch implementation of [Natural TTS Synthesis By Conditioning
+Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improce speed and performance of both training and inference.
 
 ## Requirements
 - Python >= 3.5.2
