@@ -49,7 +49,7 @@ Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram
 ## TODO
 - [x] LJSpeech dataloader.
 - [x] Reduce factor.
-- [ ] Implement codes for inference.
+- [x] Implement codes for inference.
 - [ ] Add some samples and training detail.
 - [ ] Add pretrained vocoder.
 

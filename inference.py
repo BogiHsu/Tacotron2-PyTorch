@@ -47,11 +47,11 @@ def audio(output, pth):
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-c', '--ckpt_pth', type = str, default = 'ckpt/ckpt_23000',
-						help = 'directory to load checkpoints')
-	parser.add_argument('-i', '--img_pth', type = str, default = 'ali',
+	parser.add_argument('-c', '--ckpt_pth', type = str, default = '',
+						required = True, help = 'directory to load checkpoints')
+	parser.add_argument('-i', '--img_pth', type = str, default = '',
 						help = 'directory to save images')
-	parser.add_argument('-w', '--wav_pth', type = str, default = 'pred',
+	parser.add_argument('-w', '--wav_pth', type = str, default = '',
 						help = 'directory to save wavs')
 	parser.add_argument('-t', '--text', type = str, default = 'Tacotron is awesome.',
 						help = 'text to synthesize')
@@ -59,8 +59,10 @@ if __name__ == '__main__':
 	args = parser.parse_args()
 	
 	torch.backends.cudnn.enabled = True
-	torch.backends.cudnn.benchmark = True
+	torch.backends.cudnn.benchmark = False
 	model = load_model(args.ckpt_pth)
 	output = infer(args.text, model)
-	plot(output, args.img_pth)
-	audio(output, args.wav_pth)
+	if args.img_pth != '':
+		plot(output, args.img_pth)
+	if args.wav_pth != '':
+		audio(output, args.wav_pth)
