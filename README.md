@@ -44,7 +44,7 @@ You can find alinment images and synthesized audio clips during training. Record
 - For synthesizing wav files, run the following command.
 
 ```bash
-python3 inference.py --ckpt_pth=<dir/to/model> --img_pth=<dir/to/save/alignment> --wav_pth=<dir/to/save/wavs> --text=<text/to/synthesize>
+python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment> --wav_pth=<pth/to/save/wavs> --text=<text/to/synthesize>
 ```
 
 ## Vocoder
