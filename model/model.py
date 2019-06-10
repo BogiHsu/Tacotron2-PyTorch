@@ -5,7 +5,7 @@ from hparams import hparams as hps
 from torch.autograd import Variable
 from torch.nn import functional as F
 from model.layers import ConvNorm, LinearNorm
-from utils import to_var, get_mask_from_lengths
+from utils.util import to_var, get_mask_from_lengths
 
 
 class Tacotron2Loss(nn.Module):
@@ -21,8 +21,7 @@ class Tacotron2Loss(nn.Module):
 
 		mel_out, mel_out_postnet, gate_out, _ = model_output
 		gate_out = gate_out.view(-1, 1)
-		p = hps.p if iteration < hps.sch_step else hps.p*max((1-(iteration-hps.sch_step)/hps.p_decay), 1/hps.p)
-		assert hps.p >= p >= 1
+		p = hps.p
 		mel_loss = nn.MSELoss()(p*mel_out, p*mel_target) + \
 			nn.MSELoss()(p*mel_out_postnet, p*mel_target)
 		gate_loss = nn.BCEWithLogitsLoss()(gate_out, gate_target)

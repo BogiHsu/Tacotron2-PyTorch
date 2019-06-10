@@ -1,12 +1,11 @@
 import torch
 import argparse
-import numpy as np
 import matplotlib.pylab as plt
 from text import text_to_sequence
 from model.model import Tacotron2
 from hparams import hparams as hps
-from utils import mode, to_var, to_arr
-from audio import save_wav, inv_melspectrogram
+from utils.util import mode, to_var, to_arr
+from utils.audio import save_wav, inv_melspectrogram
 
 
 def load_model(ckpt_pth):

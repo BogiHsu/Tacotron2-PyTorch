@@ -2,10 +2,10 @@ import os
 import torch
 import random
 import numpy as np
-import torch.utils.data
 from text import text_to_sequence
 from hparams import hparams as hps
-from audio import load_wav, melspectrogram
+from torch.utils.data import Dataset
+from utils.audio import load_wav, melspectrogram
 random.seed(0)
 
 
@@ -19,7 +19,7 @@ def files_to_list(fdir):
 	return f_list
 
 
-class ljdataset(torch.utils.data.Dataset):
+class ljdataset(Dataset):
 	def __init__(self, fdir):
 		self.f_list = files_to_list(fdir)
 		random.shuffle(self.f_list)

@@ -1,9 +1,9 @@
 import numpy as np
-from utils import to_arr
+from utils.util import to_arr
 from hparams import hparams as hps
-from audio import inv_melspectrogram
 from tensorboardX import SummaryWriter
-from plot import plot_alignment_to_numpy, plot_spectrogram_to_numpy
+from utils.audio import inv_melspectrogram
+from utils.plot import plot_alignment_to_numpy, plot_spectrogram_to_numpy
 
 
 class Tacotron2Logger(SummaryWriter):

@@ -1,15 +1,14 @@
 import os
 import time
-import math
 import torch
 import argparse
 import numpy as np
 from inference import infer
-from utils import mode, to_arr
-from logger import Tacotron2Logger
+from utils.util import mode
 from hparams import hparams as hps
 from torch.utils.data import DataLoader
-from dataset import ljdataset, ljcollate
+from utils.logger import Tacotron2Logger
+from utils.dataset import ljdataset, ljcollate
 from model.model import Tacotron2, Tacotron2Loss
 np.random.seed(0)
 torch.manual_seed(0)
@@ -53,7 +52,7 @@ def train(args):
 	
 	# get scheduler
 	if hps.sch:
-		lr_lambda = lambda step: (1e-2)**max(min((step/(2*hps.sch_step))-0.5, 1), 0)
+		lr_lambda = lambda step: hps.sch_step**0.5*min((step+1)*hps.sch_step**-1.5, (step+1)**-0.5)
 		if args.ckpt_pth != '':
 			scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda, last_epoch = iteration)
 		else:

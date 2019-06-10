@@ -11,8 +11,8 @@ class hparams:
 	# Audio                        #
 	################################
 	num_mels = 80
-	num_freq = 513
-	sample_rate = 16000
+	num_freq = 1025
+	sample_rate = 22050
 	frame_length_ms = 50
 	frame_shift_ms = 12.5
 	preemphasis = 0.97
@@ -33,7 +33,7 @@ class hparams:
 	encoder_embedding_dim = 256 # 512
 
 	# Decoder parameters
-	n_frames_per_step = 5
+	n_frames_per_step = 2
 	decoder_rnn_dim = 512 # 1024
 	prenet_dim = 256
 	max_decoder_steps = 1000
@@ -43,7 +43,7 @@ class hparams:
 
 	# Attention parameters
 	attention_rnn_dim = 512 # 1024
-	attention_dim = 128
+	attention_dim = 256
 
 	# Location Layer parameters
 	attention_location_n_filters = 32
@@ -59,10 +59,10 @@ class hparams:
 	################################
 	is_cuda = True
 	pin_mem = True
-	n_workers = 3
-	lr = 1e-3
+	n_workers = 8
+	lr = 2e-3
 	sch = True
-	sch_step = 5e4
+	sch_step = 4000
 	max_iter = 2e5
 	batch_size = 32
 	iters_per_log = 10
@@ -72,5 +72,4 @@ class hparams:
 	grad_clip_thresh = 1.0
 	mask_padding = True
 	p = 10 # mel spec loss penalty
-	p_decay = 5e4
 	eg_text = 'Make America great again!'
