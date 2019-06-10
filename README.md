@@ -41,7 +41,11 @@ python3 train.py --data_dir=<dir/to/dataset> --log_dir-root=<dir/to/logs> --ckpt
 You can find alinment images and synthesized audio clips during training. Recording freqency and text to synthesize can be set in `hparams.py`.
 
 ## Inference
-Work in progress.
+- For synthesizing wav files, run the following command.
+
+```bash
+python3 inference.py --ckpt_pth=<dir/to/model> --img_pth=<dir/to/save/alignment> --wav_pth=<dir/to/save/wavs> --text=<text/to/synthesize>
+```
 
 ## Vocoder
 Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel-spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
