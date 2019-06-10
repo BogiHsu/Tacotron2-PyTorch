@@ -6,7 +6,7 @@ Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). T
 - [x] LJSpeech dataloader.
 - [x] Reduction factor.
 - [x] Implement codes for inference.
-- [ ] Add some samples and training detail.
+- [ ] Add some samples and pertrained model.
 - [ ] Add pretrained vocoder.
 
 ## Requirements
