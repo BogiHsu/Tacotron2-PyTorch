@@ -2,6 +2,13 @@
 Yet another PyTorch implementation of [Natural TTS Synthesis By Conditioning
 Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
+## TODO
+- [x] LJSpeech dataloader.
+- [x] Reduction factor.
+- [x] Implement codes for inference.
+- [ ] Add some samples and pertrained model.
+- [ ] Add pretrained vocoder.
+
 ## Requirements
 - Python >= 3.5.2
 - torch >= 1.0.0
@@ -15,7 +22,7 @@ Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). T
 - tensorboardX
 
 ## Preprocessing
-Currently only support LJSpeech dataset. No need to do preprocessing if you use the dataset with 22050 sample rate.
+Currently only support [LJSpeech dataset](https://keithito.com/LJ-Speech-Dataset/). No need to do preprocessing if you use the dataset with 22050 sample rate.
 
 For traing with different sample rate, you should deal with the audio files yourself and modified `hparams.py`.
 
@@ -49,13 +56,6 @@ python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment>
 
 ## Vocoder
 Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel-spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
-
-## TODO
-- [x] LJSpeech dataloader.
-- [x] Reduce factor.
-- [x] Implement codes for inference.
-- [ ] Add some samples and training detail.
-- [ ] Add pretrained vocoder.
 
 ## References
 This project is highly based on the works below.
