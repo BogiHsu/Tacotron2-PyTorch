@@ -55,14 +55,16 @@ python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment>
 ```
 
 ## Vocoder
-Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel-spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
+Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
 
 ## Results
 You can find a TEMPORARY sample audio [here](https://github.com/BogiHsu/Tacotron2-PyTorch/tree/master/results). Please note that the training has not done yet and for now the reconstruction [process](#Vocoder) still causes many distortion (a vocoder implementation is also a future work), so this is NOT the best result of this work.
 
-But the alignment of the attention is pretty well now (about 100k training step), here is one sample.
+But the alignment of the attention is pretty well now (about 100k training steps), the following figure is one sample.
 
 <img src="https://github.com/BogiHsu/Tacotron2-PyTorch/blob/master/results/tmp.png">
+
+This figure shows the mel spectrogram from the decoder without the postnet, the mel spectrgram with the postnet, and the alignment of the attention.
 
 ## References
 This project is highly based on the works below.
