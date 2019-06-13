@@ -460,12 +460,13 @@ class Decoder(nn.Module):
 			alignments += [alignment]
 
 			if torch.sigmoid(gate_output.data) > self.gate_threshold:
+				print('Terminated by gate.')
 				break
 			elif len(mel_outputs) > 1 and is_end_of_frames(mel_output):
-				print('Warning! End with low power')
+				print('Warning: End with low power.')
 				break
 			elif len(mel_outputs) == self.max_decoder_steps:
-				print('Warning! Reached max decoder steps')
+				print('Warning: Reached max decoder steps.')
 				break
 
 			decoder_input = mel_output

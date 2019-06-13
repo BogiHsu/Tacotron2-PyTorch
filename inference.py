@@ -14,7 +14,6 @@ def load_model(ckpt_pth):
 	model.load_state_dict(ckpt_dict['model'])
 	model = mode(model, True).eval()
 	model.decoder.train()
-	model.postnet.train()
 	return model
 
 
@@ -50,11 +49,11 @@ def audio(output, pth):
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-c', '--ckpt_pth', type = str, default = '',
-						required = True, help = 'directory to load checkpoints')
+						required = True, help = 'path to load checkpoints')
 	parser.add_argument('-i', '--img_pth', type = str, default = '',
-						help = 'directory to save images')
+						help = 'path to save images')
 	parser.add_argument('-w', '--wav_pth', type = str, default = '',
-						help = 'directory to save wavs')
+						help = 'path to save wavs')
 	parser.add_argument('-t', '--text', type = str, default = 'Tacotron is awesome.',
 						help = 'text to synthesize')
 
@@ -63,6 +62,7 @@ if __name__ == '__main__':
 	torch.backends.cudnn.enabled = True
 	torch.backends.cudnn.benchmark = False
 	model = load_model(args.ckpt_pth)
+	print(args.text)
 	output = infer(args.text, model)
 	if args.img_pth != '':
 		plot(output, args.img_pth)
