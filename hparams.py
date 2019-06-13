@@ -25,16 +25,16 @@ class hparams:
 	# Model Parameters             #
 	################################
 	n_symbols = len(symbols)
-	symbols_embedding_dim = 256 # 512
+	symbols_embedding_dim = 512
 
 	# Encoder parameters
 	encoder_kernel_size = 5
 	encoder_n_convolutions = 3
-	encoder_embedding_dim = 256 # 512
+	encoder_embedding_dim = 512
 
 	# Decoder parameters
 	n_frames_per_step = 3
-	decoder_rnn_dim = 512 # 1024
+	decoder_rnn_dim = 1024
 	prenet_dim = 256
 	max_decoder_steps = 1000
 	gate_threshold = 0.5
@@ -42,8 +42,8 @@ class hparams:
 	p_decoder_dropout = 0.1
 
 	# Attention parameters
-	attention_rnn_dim = 512 # 1024
-	attention_dim = 256 # 128
+	attention_rnn_dim = 1024
+	attention_dim = 256
 
 	# Location Layer parameters
 	attention_location_n_filters = 32
