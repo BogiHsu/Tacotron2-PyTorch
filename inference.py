@@ -1,5 +1,6 @@
 import torch
 import argparse
+import numpy as np
 import matplotlib.pylab as plt
 from text import text_to_sequence
 from model.model import Tacotron2
@@ -46,6 +47,12 @@ def audio(output, pth):
 	save_wav(wav_postnet, pth+'_post.wav')
 
 
+def save_mel(output, pth):
+	mel_outputs, mel_outputs_postnet, _ = output
+	np.save(pth+'.npy', to_arr(mel_outputs[0]).T)
+	np.save(pth+'_post.npy', to_arr(mel_outputs[0]).T)
+
+
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-c', '--ckpt_pth', type = str, default = '',
@@ -54,6 +61,8 @@ if __name__ == '__main__':
 						help = 'path to save images')
 	parser.add_argument('-w', '--wav_pth', type = str, default = '',
 						help = 'path to save wavs')
+	parser.add_argument('-n', '--npy_pth', type = str, default = '',
+						help = 'path to save mels')
 	parser.add_argument('-t', '--text', type = str, default = 'Tacotron is awesome.',
 						help = 'text to synthesize')
 
@@ -62,9 +71,10 @@ if __name__ == '__main__':
 	torch.backends.cudnn.enabled = True
 	torch.backends.cudnn.benchmark = False
 	model = load_model(args.ckpt_pth)
-	print(args.text)
 	output = infer(args.text, model)
 	if args.img_pth != '':
 		plot(output, args.img_pth)
 	if args.wav_pth != '':
 		audio(output, args.wav_pth)
+	if args.npy_pth != '':
+		save_mel(output, args.npy_pth)
