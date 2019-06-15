@@ -15,6 +15,7 @@ def load_model(ckpt_pth):
 	model.load_state_dict(ckpt_dict['model'])
 	model = mode(model, True).eval()
 	model.decoder.train()
+	model.postnet.train()
 	return model
 
 
