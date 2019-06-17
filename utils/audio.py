@@ -1,13 +1,13 @@
 import librosa
 import librosa.filters
 import torch
-import scipy
 import numpy as np
+from scipy.io import wavfile
 from hparams import hparams as hps
 
 
 def load_wav(path):
-	sr, wav = scipy.io.wavfile.read(path)
+	sr, wav = wavfile.read(path)
 	wav = wav/np.max(np.abs(wav))
 	try:
 		assert sr == hps.sample_rate
@@ -18,7 +18,7 @@ def load_wav(path):
 
 def save_wav(wav, path):
 	wav *= 32767 / max(0.01, np.max(np.abs(wav)))
-	scipy.io.wavfile.write(path, hps.sample_rate, wav.astype(np.int16))
+	wavfile.write(path, hps.sample_rate, wav.astype(np.int16))
 
 
 def preemphasis(x):
