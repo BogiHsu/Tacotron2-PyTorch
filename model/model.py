@@ -515,7 +515,7 @@ class Tacotron2(nn.Module):
 			outputs[0].data.masked_fill_(mask, 0.0) # (B, 80, T)
 			outputs[1].data.masked_fill_(mask, 0.0) # (B, 80, T)
 			slice = torch.arange(0, mask.size(2), self.n_frames_per_step)
-			outputs[2].data.masked_fill_(mask[:, 0, slice], 1e3)  # gate energies (B, T//5)
+			outputs[2].data.masked_fill_(mask[:, 0, slice], 1e3)  # gate energies (B, T//n_frames_per_step)
 
 		return outputs
 
