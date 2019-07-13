@@ -1,6 +1,5 @@
 import librosa
 import librosa.filters
-import torch
 import numpy as np
 from scipy.io import wavfile
 from hparams import hparams as hps
