@@ -3,7 +3,7 @@ Yet another PyTorch implementation of [Natural TTS Synthesis By Conditioning
 Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
 ## Update
-Now you can download pretrained models from [here](https://www.dropbox.com/sh/vk2erozpkoltao6/AABCk4WryQtrt4BYthIKzbK7a?dl=0). The hyperparameter for training the pretrained models is also in the directory.
+Now you can download pretrained models from [here](https://www.dropbox.com/sh/vk2erozpkoltao6/AABCk4WryQtrt4BYthIKzbK7a?dl=0). The hyperparameter(git commit: [301943f](https://github.com/BogiHsu/Tacotron2-PyTorch/commit/301943f4c9d1de7d6c819be08ebd401a059127c3)) for training the pretrained models is also in the directory.
 
 ## TODO
 - [x] LJSpeech dataloader.
