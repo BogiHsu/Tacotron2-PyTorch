@@ -75,6 +75,6 @@ This figure shows the mel spectrogram from the decoder without the postnet, the 
 
 ## References
 This project is highly based on the works below.
-- [Tacotron2 implement by NVIDIA](https://github.com/NVIDIA/tacotron2)
-- [Tacotron implement by r9y9](https://github.com/r9y9/tacotron_pytorch)
-- [Tacotron implement by keithito](https://github.com/keithito/tacotron)
+- [Tacotron2 by NVIDIA](https://github.com/NVIDIA/tacotron2)
+- [Tacotron by r9y9](https://github.com/r9y9/tacotron_pytorch)
+- [Tacotron by keithito](https://github.com/keithito/tacotron)
