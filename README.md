@@ -3,7 +3,7 @@ Yet another PyTorch implementation of [Natural TTS Synthesis By Conditioning
 Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
 ## Update
-Now you can download pretrained models from [here](https://www.dropbox.com/sh/vk2erozpkoltao6/AABCk4WryQtrt4BYthIKzbK7a?dl=0). The hyperparameter(git commit: [301943f](https://github.com/BogiHsu/Tacotron2-PyTorch/commit/301943f4c9d1de7d6c819be08ebd401a059127c3)) for training the pretrained models is also in the directory.
+Pretrained models are available now!
 
 ## TODO
 - [x] LJSpeech dataloader.
@@ -57,6 +57,9 @@ You can find alinment images and synthesized audio clips during training. Record
 ```bash
 python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment> --wav_pth=<pth/to/save/wavs> --text=<text/to/synthesize>
 ```
+
+## Pretrained Model
+Now you can download pretrained models from [here](https://www.dropbox.com/sh/vk2erozpkoltao6/AABCk4WryQtrt4BYthIKzbK7a?dl=0). The hyperparameter(git commit: [301943f](https://github.com/BogiHsu/Tacotron2-PyTorch/commit/301943f4c9d1de7d6c819be08ebd401a059127c3)) for training the pretrained models is also in the directory.
 
 ## Vocoder
 Vocoder is not implemented yet. For now I just reconstuct the linear spectrogram from the mel spectrogram directly and use Griffim-Lim to synthesize the waveform. A neural vocoder will be implemented in the future. Or you can refer to [Wavenet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
