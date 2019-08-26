@@ -108,7 +108,7 @@ def train(args):
 				learning_rate = optimizer.param_groups[0]['lr']
 				logger.log_training(item, grad_norm, learning_rate, iteration)
 			
-			# log
+			# sample
 			if args.log_dir != '' and (iteration % hps.iters_per_sample == 0):
 				model.eval()
 				output = infer(hps.eg_text, model)
@@ -133,7 +133,7 @@ if __name__ == '__main__':
 	parser.add_argument('-cd', '--ckpt_dir', type = str, default = 'ckpt',
 						help = 'directory to save checkpoints')
 	parser.add_argument('-cp', '--ckpt_pth', type = str, default = '',
-						help = 'directory to load checkpoints')
+						help = 'path to load checkpoints')
 
 	args = parser.parse_args()
 	
