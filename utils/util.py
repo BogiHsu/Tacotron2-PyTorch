@@ -23,5 +23,5 @@ def get_mask_from_lengths(lengths, pad = False):
 		assert max_len%hps.n_frames_per_step == 0
 	ids = torch.arange(0, max_len, out = torch.LongTensor(max_len))
 	ids = mode(ids)
-	mask = (ids < lengths.unsqueeze(1)).byte()
+	mask = (ids < lengths.unsqueeze(1))
 	return mask
