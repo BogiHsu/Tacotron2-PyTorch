@@ -3,7 +3,7 @@ Yet another PyTorch implementation of [Natural TTS Synthesis By Conditioning
 Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
 ## Update
-Pretrained models are [available](#pretrained-model) now!
+Vocoders are comming soon.
 
 ## TODO
 - [x] LJSpeech dataloader.
