@@ -8,6 +8,7 @@ from hparams import hparams as hps
 
 def load_wav(path):
 	sr, wav = wavfile.read(path)
+	wav = wav.astype(np.float32)
 	wav = wav/np.max(np.abs(wav))
 	try:
 		assert sr == hps.sample_rate
