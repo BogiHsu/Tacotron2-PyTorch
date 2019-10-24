@@ -550,3 +550,21 @@ class Tacotron2(nn.Module):
 			[mel_outputs, mel_outputs_postnet, gate_outputs, alignments])
 
 		return outputs
+
+	def teacher_infer(self, inputs, mels):
+		il, _ =  torch.sort(torch.LongTensor([len(x) for x in inputs]),
+							dim = 0, descending = True)
+		text_lengths = to_var(il)
+
+		embedded_inputs = self.embedding(inputs).transpose(1, 2)
+
+		encoder_outputs = self.encoder(embedded_inputs, text_lengths)
+
+		mel_outputs, gate_outputs, alignments = self.decoder(
+			encoder_outputs, mels, memory_lengths=text_lengths)
+		
+		mel_outputs_postnet = self.postnet(mel_outputs)
+		mel_outputs_postnet = mel_outputs + mel_outputs_postnet
+
+		return self.parse_output(
+			[mel_outputs, mel_outputs_postnet, gate_outputs, alignments])
