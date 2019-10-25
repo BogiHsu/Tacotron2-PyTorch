@@ -6,8 +6,7 @@ Wavenet On Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). T
 [Results](#Results) generated using a WaveNet vocoder is abvailable now!
 
 ## TODO
-- [X] Add some samples and a pertrained model.
-- [ ] Add a pretrained vocoder.
+- [ ] Pipeline for training a vocoder.
 
 ## Requirements
 - Python >= 3.5.2
