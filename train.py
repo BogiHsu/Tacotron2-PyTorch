@@ -121,7 +121,8 @@ def train(args):
 				save_checkpoint(model, optimizer, iteration, ckpt_pth)
 
 			iteration += 1
-	logger.close()
+	if args.log_dir != '':
+		logger.close()
 
 
 if __name__ == '__main__':
