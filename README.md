@@ -41,7 +41,7 @@ python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models> --ckpt_p
 3. For using Tensorboard (optional), run the following command.
 
 ```bash
-python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models> --log_dir-root=<dir/to/logs>
+python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models> --log_dir=<dir/to/logs>
 ```
 
 You can find alinment images and synthesized audio clips during training. Recording freqency and text to synthesize can be set in `hparams.py`.
