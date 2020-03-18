@@ -34,15 +34,18 @@ def infer(wav_path, text, model):
 	sequence = text_to_sequence(text, hps.text_cleaners)
 	sequence = to_var(torch.IntTensor(sequence)[None, :]).long()
 	mel = melspectrogram(load_wav(wav_path))
-	r = mel.shape[1]%hps.n_frames_per_step
-	mel_in = to_var(torch.Tensor([mel[:, :-r]]))
-	if mel_in.shape[2] < 1:
-		return None
+	mel_in = to_var(torch.Tensor([mel]))
+	r = mel_in.shape[2]%hps.n_frames_per_step
+	if r != 0:
+		mel_in = mel_in[:, :, :-r]
 	sequence = torch.cat([sequence, sequence], 0)
 	mel_in = torch.cat([mel_in, mel_in], 0)
 	_, mel_outputs_postnet, _, _ = model.teacher_infer(sequence, mel_in)
 	ret = mel
-	ret[:, :-r] = to_arr(mel_outputs_postnet[0])
+	if r != 0:
+		ret[:, :-r] = to_arr(mel_outputs_postnet[0])
+	else:
+		ret = to_arr(mel_outputs_postnet[0])
 	return ret
 
 
@@ -66,8 +69,6 @@ if __name__ == '__main__':
 	flist = files_to_list()
 	for x in flist:
 		ret = infer(x[0], x[1], model)
-		if ret is None:
-			continue
 		name = x[0].split('/')[-1].split('.wav')[0]
 		if args.npy_pth != '':
 			save_mel(ret, args.npy_pth, name)
