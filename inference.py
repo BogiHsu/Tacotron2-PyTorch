@@ -40,16 +40,16 @@ def plot(output, pth):
 
 def audio(output, pth):
 	mel_outputs, mel_outputs_postnet, _ = output
-	wav = inv_melspectrogram(to_arr(mel_outputs[0]))
+	#wav = inv_melspectrogram(to_arr(mel_outputs[0]))
 	wav_postnet = inv_melspectrogram(to_arr(mel_outputs_postnet[0]))
-	save_wav(wav, pth+'.wav')
-	save_wav(wav_postnet, pth+'_post.wav')
+	#save_wav(wav, pth+'.wav')
+	save_wav(wav_postnet, pth+'.wav')
 
 
 def save_mel(output, pth):
 	mel_outputs, mel_outputs_postnet, _ = output
+	#np.save(pth+'.npy', to_arr(mel_outputs[0]).T)
 	np.save(pth+'.npy', to_arr(mel_outputs[0]).T)
-	np.save(pth+'_post.npy', to_arr(mel_outputs[0]).T)
 
 
 if __name__ == '__main__':
