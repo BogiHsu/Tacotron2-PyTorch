@@ -8,7 +8,7 @@ from utils.plot import plot_alignment_to_numpy, plot_spectrogram_to_numpy
 
 class Tacotron2Logger(SummaryWriter):
 	def __init__(self, logdir):
-		super(Tacotron2Logger, self).__init__(logdir)
+		super(Tacotron2Logger, self).__init__(logdir, flush_secs = 5)
 
 	def log_training(self, reduced_loss, grad_norm, learning_rate, iteration):
 			self.add_scalar("training.loss", reduced_loss, iteration)
