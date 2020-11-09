@@ -18,7 +18,7 @@ Yet another PyTorch implementation of [Natural TTS Synthesis by Conditioning Wav
 - tensorboardX
 
 ## Preprocessing
-Currently only support [LJSpeech dataset](https://keithito.com/LJ-Speech-Dataset/). You can modify `hparams.py` for different sampling rates. `prep` decides whether to preprocess all utterances before training or online preprocess. `pth` sepecifies the path to store preprocessed data.
+Currently only support [LJ Speech](https://keithito.com/LJ-Speech-Dataset/). You can modify `hparams.py` for different sampling rates. `prep` decides whether to preprocess all utterances before training or online preprocess. `pth` sepecifies the path to store preprocessed data.
 
 ## Training
 1. For training Tacotron2, run the following command.
