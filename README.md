@@ -2,7 +2,8 @@
 Yet another PyTorch implementation of [Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
 ## TODO
-- [ ] Combining with [WG-WaveNet](https://arxiv.org/abs/2005.07412).
+- [ ] Combine with [WG-WaveNet](https://bogihsu.github.io/WG-WaveNet/).
+- [ ] Add Colab demo.
 
 ## Requirements
 - Python >= 3.5.2
@@ -51,7 +52,7 @@ python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment>
 You can download pretrained models from [here](https://www.dropbox.com/sh/vk2erozpkoltao6/AABCk4WryQtrt4BYthIKzbK7a?dl=0) (git commit: [9e7c26d](https://github.com/BogiHsu/Tacotron2-PyTorch/commit/9e7c26d93ea9d93332b1c316ac85c58771197d4f)). The hyperparameter for training is also in the directory.
 
 ## Vocoder
-A vocoder is not implemented yet. For now it just reconstucts the linear spectrogram from the Mel spectrogram directly and uses Griffim-Lim to synthesize the waveform. A pipeline for [WG-WaveNet](https://arxiv.org/abs/2005.07412) is in progress. Or you can refer to [WaveNet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
+A vocoder is not implemented yet. For now it just reconstucts the linear spectrogram from the Mel spectrogram directly and uses Griffim-Lim to synthesize the waveform. A pipeline for [WG-WaveNet](https://bogihsu.github.io/WG-WaveNet/) is in progress. Or you can refer to [WaveNet](https://github.com/r9y9/wavenet_vocoder), [FFTNet](https://github.com/syang1993/FFTNet), or [WaveGlow](https://github.com/NVIDIA/waveglow).
 
 ## Results
 You can find some samples in [results](https://github.com/BogiHsu/Tacotron2-PyTorch/tree/master/results). These results are generated using either pseudo inverse or WaveNet.
