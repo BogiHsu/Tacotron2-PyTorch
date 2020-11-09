@@ -10,9 +10,9 @@ from torch.utils.data import DataLoader
 from utils.logger import Tacotron2Logger
 from utils.dataset import ljdataset, ljcollate
 from model.model import Tacotron2, Tacotron2Loss
-np.random.seed(0)
-torch.manual_seed(0)
-torch.cuda.manual_seed(0)
+np.random.seed(hps.seed)
+torch.manual_seed(hps.seed)
+torch.cuda.manual_seed(hps.seed)
 
 def prepare_dataloaders(fdir):
 	trainset = ljdataset(fdir)

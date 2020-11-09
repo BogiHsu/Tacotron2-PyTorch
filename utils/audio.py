@@ -87,10 +87,7 @@ def _istft(y):
 
 
 def _stft_parameters():
-	n_fft = (hps.num_freq - 1) * 2
-	hop_length = int(hps.frame_shift_ms / 1000 * hps.sample_rate)
-	win_length = int(hps.frame_length_ms / 1000 * hps.sample_rate)
-	return n_fft, hop_length, win_length
+	return (hps.num_freq - 1) * 2, hps.frame_shift, hps.frame_length
 
 
 # Conversions:
@@ -116,7 +113,7 @@ def _mel_to_linear(spectrogram):
 
 def _build_mel_basis():
 	n_fft = (hps.num_freq - 1) * 2
-	return librosa.filters.mel(hps.sample_rate, n_fft, n_mels=hps.num_mels)
+	return librosa.filters.mel(hps.sample_rate, n_fft, n_mels=hps.num_mels, fmin = hps.fmin, fmax = hps.fmax)
 
 def _amp_to_db(x):
 	return 20 * np.log10(np.maximum(1e-5, x))

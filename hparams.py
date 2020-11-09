@@ -2,6 +2,8 @@ from text import symbols
 
 
 class hparams:
+	seed = 0
+
 	################################
 	# Data Parameters              #
 	################################
@@ -11,15 +13,41 @@ class hparams:
 	# Audio                        #
 	################################
 	num_mels = 80
-	num_freq = 1025
+	num_freq = 513
 	sample_rate = 22050
-	frame_length_ms = 50
-	frame_shift_ms = 12.5
+	frame_shift = 200
+	frame_length = 800
 	preemphasis = 0.97
 	min_level_db = -100
 	ref_level_db = 20
+	fmin = 0
+	fmax = 8000
 	power = 1.5
 	gl_iters = 100
+
+	################################
+	# Train                        #
+	################################
+	is_cuda = True
+	pin_mem = True
+	n_workers = 8
+	prep = True
+	pth = 'lj-22k.pth'
+	lr = 2e-3
+	betas = (0.9, 0.999)
+	eps = 1e-6
+	sch = True
+	sch_step = 4000
+	max_iter = 200e3
+	batch_size = 64
+	iters_per_log = 10
+	iters_per_sample = 500
+	iters_per_ckpt = 10000
+	weight_decay = 1e-6
+	grad_clip_thresh = 1.0
+	mask_padding = True
+	p = 10 # mel spec loss penalty
+	eg_text = 'Make America great again!'
 
 	################################
 	# Model Parameters             #
@@ -54,24 +82,3 @@ class hparams:
 	postnet_kernel_size = 5
 	postnet_n_convolutions = 5
 
-	################################
-	# Train                        #
-	################################
-	is_cuda = True
-	pin_mem = True
-	n_workers = 8
-	lr = 2e-3
-	betas = (0.9, 0.999)
-	eps = 1e-6
-	sch = True
-	sch_step = 4000
-	max_iter = 2e5
-	batch_size = 32
-	iters_per_log = 10
-	iters_per_sample = 500
-	iters_per_ckpt = 1000
-	weight_decay = 1e-6
-	grad_clip_thresh = 1.0
-	mask_padding = True
-	p = 10 # mel spec loss penalty
-	eg_text = 'Make America great again!'

@@ -1,12 +1,11 @@
 import os
 import torch
-import random
+import pickle
 import numpy as np
 from text import text_to_sequence
 from hparams import hparams as hps
 from torch.utils.data import Dataset
 from utils.audio import load_wav, melspectrogram
-random.seed(0)
 
 
 def files_to_list(fdir):
@@ -15,35 +14,44 @@ def files_to_list(fdir):
 		for line in f:
 			parts = line.strip().split('|')
 			wav_path = os.path.join(fdir, 'wavs', '%s.wav' % parts[0])
-			f_list.append([wav_path, parts[1]])
+			if hps.prep:
+				f_list.append(get_mel_text_pair(parts[1], wav_path))
+			else:
+				f_list.append([parts[1], wav_path])
+	if hps.prep and hps.pth is not None:
+		with open(hps.pth, 'wb') as w:
+			pickle.dump(f_list, w)
 	return f_list
 
 
 class ljdataset(Dataset):
 	def __init__(self, fdir):
-		self.f_list = files_to_list(fdir)
-		random.shuffle(self.f_list)
-
-	def get_mel_text_pair(self, filename_and_text):
-		filename, text = filename_and_text[0], filename_and_text[1]
-		text = self.get_text(text)
-		mel = self.get_mel(filename)
-		return (text, mel)
-
-	def get_mel(self, filename):
-		wav = load_wav(filename)
-		mel = melspectrogram(wav).astype(np.float32)
-		return torch.Tensor(mel)
-
-	def get_text(self, text):
-		text_norm = torch.IntTensor(text_to_sequence(text, hps.text_cleaners))
-		return text_norm
+		if hps.prep and hps.pth is not None and os.path.isfile(hps.pth):
+			with open(hps.pth, 'rb') as r:
+				self.f_list = pickle.load(r)
+		else:
+			self.f_list = files_to_list(fdir)
 
 	def __getitem__(self, index):
-		return self.get_mel_text_pair(self.f_list[index])
+		text, mel = self.f_list[index] if hps.prep \
+					else get_mel_text_pair(*self.f_list[index])
+		return text, mel
 
 	def __len__(self):
 		return len(self.f_list)
+
+
+def get_mel_text_pair(text, wav_path):
+	text = get_text(text)
+	mel = get_mel(wav_path)
+	return (text, mel)
+
+def get_text(text):
+	return torch.IntTensor(text_to_sequence(text, hps.text_cleaners))
+
+def get_mel(wav_path):
+	wav = load_wav(wav_path)
+	return torch.Tensor(melspectrogram(wav).astype(np.float32))
 
 
 class ljcollate():

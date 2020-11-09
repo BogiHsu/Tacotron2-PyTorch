@@ -5,7 +5,7 @@ from hparams import hparams as hps
 from torch.autograd import Variable
 from torch.nn import functional as F
 from model.layers import ConvNorm, LinearNorm
-from utils.util import to_var, get_mask_from_lengths
+from utils.util import mode, get_mask_from_lengths
 
 
 class Tacotron2Loss(nn.Module):
@@ -495,12 +495,12 @@ class Tacotron2(nn.Module):
 
 	def parse_batch(self, batch):
 		text_padded, input_lengths, mel_padded, gate_padded, output_lengths = batch
-		text_padded = to_var(text_padded).long()
-		input_lengths = to_var(input_lengths).long()
+		text_padded = mode(text_padded).long()
+		input_lengths = mode(input_lengths).long()
 		max_len = torch.max(input_lengths.data).item()
-		mel_padded = to_var(mel_padded).float()
-		gate_padded = to_var(gate_padded).float()
-		output_lengths = to_var(output_lengths).long()
+		mel_padded = mode(mel_padded).float()
+		gate_padded = mode(gate_padded).float()
+		output_lengths = mode(output_lengths).long()
 
 		return (
 			(text_padded, input_lengths, mel_padded, max_len, output_lengths),
@@ -554,7 +554,7 @@ class Tacotron2(nn.Module):
 	def teacher_infer(self, inputs, mels):
 		il, _ =  torch.sort(torch.LongTensor([len(x) for x in inputs]),
 							dim = 0, descending = True)
-		text_lengths = to_var(il)
+		text_lengths = mode(il)
 
 		embedded_inputs = self.embedding(inputs).transpose(1, 2)
 

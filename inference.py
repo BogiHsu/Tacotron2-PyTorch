@@ -5,7 +5,7 @@ import matplotlib.pylab as plt
 from text import text_to_sequence
 from model.model import Tacotron2
 from hparams import hparams as hps
-from utils.util import mode, to_var, to_arr
+from utils.util import mode, to_arr
 from utils.audio import save_wav, inv_melspectrogram
 
 
@@ -19,7 +19,7 @@ def load_model(ckpt_pth):
 
 def infer(text, model):
 	sequence = text_to_sequence(text, hps.text_cleaners)
-	sequence = to_var(torch.IntTensor(sequence)[None, :]).long()
+	sequence = mode(torch.IntTensor(sequence)[None, :]).long()
 	mel_outputs, mel_outputs_postnet, _, alignments = model.inference(sequence)
 	return (mel_outputs, mel_outputs_postnet, alignments)
 

@@ -9,10 +9,6 @@ def mode(obj, model = False):
 		obj = obj.cuda(non_blocking = hps.pin_mem)
 	return obj
 
-def to_var(tensor):
-	var = torch.autograd.Variable(tensor)
-	return mode(var)
-
 def to_arr(var):
 	return var.cpu().detach().numpy().astype(np.float32)
 
