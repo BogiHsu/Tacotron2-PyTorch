@@ -3,8 +3,9 @@ Yet another PyTorch implementation of [Natural TTS Synthesis by Conditioning Wav
 
 ## TODO
 - [ ] Add Colab demo.
-- [ ] Update README.
-- [ ] Upload pretrained models.
+- [ ] Add some demo audio.
+- [x] Update README.
+- [x] Upload pretrained models.
 - [x] Compatible with [WaveGlow](https://github.com/NVIDIA/waveglow) and [Hifi-GAN](https://github.com/jik876/hifi-gan).
 
 ## Requirements
@@ -24,31 +25,50 @@ Currently only support [LJ Speech](https://keithito.com/LJ-Speech-Dataset/). You
 
 ## Training
 1. For training Tacotron2, run the following command.
-
 ```bash
-python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models>
+python3 train.py \
+    --data_dir=<dir/to/dataset> \
+    --ckpt_dir=<dir/to/models>
 ```
 
-2. For training using a pretrained model, run the following command.
-
+2. If you have multiple GPUs, try [distributed.launch](https://pytorch.org/docs/stable/distributed.html#launch-utility).
 ```bash
-python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models> --ckpt_pth=<pth/to/pretrained/model>
+python -m torch.distributed.launch --nproc_per_node <NUM_GPUS> train.py \
+    --data_dir=<dir/to/dataset> \
+    --ckpt_dir=<dir/to/models>
+```
+Note that the training batch size will become <NUM_GPUS> times larger.
+
+3. For training using a pretrained model, run the following command.
+```bash
+python3 train.py \
+    --data_dir=<dir/to/dataset> \
+    --ckpt_dir=<dir/to/models> \
+    --ckpt_pth=<pth/to/pretrained/model>
 ```
 
-3. For using Tensorboard (optional), run the following command.
-
+4. For using Tensorboard (optional), run the following command.
 ```bash
-python3 train.py --data_dir=<dir/to/dataset> --ckpt_dir=<dir/to/models> --log_dir=<dir/to/logs>
+python3 train.py \
+    --data_dir=<dir/to/dataset> \
+    --ckpt_dir=<dir/to/models> \
+    --log_dir=<dir/to/logs>
 ```
-
-You can find alinment images and synthesized audio clips during training. Recording freqency and text to synthesize can be set in `hparams.py`.
+You can find alinment images and synthesized audio clips during training. The text to synthesize can be set in `hparams.py`.
 
 ## Inference
 - For synthesizing wav files, run the following command.
 
 ```bash
-python3 inference.py --ckpt_pth=<pth/to/model> --img_pth=<pth/to/save/alignment> --wav_pth=<pth/to/save/wavs> --text=<text/to/synthesize>
+python3 inference.py \
+    --ckpt_pth=<pth/to/model> \
+    --img_pth=<pth/to/save/alignment> \
+    --wav_pth=<pth/to/save/wavs> \
+    --text=<text/to/synthesize>
 ```
+
+## Pretrained Model
+You can download pretrained models from [Realeases](https://github.com/BogiHsu/Tacotron2-PyTorch/releases). The hyperparameter for training is also in the directory. All the models were trained using 8 GPUs.
 
 ## Vocoder
 A vocoder is not implemented. But the model is compatible with [WaveGlow](https://github.com/NVIDIA/waveglow) and [Hifi-GAN](https://github.com/jik876/hifi-gan). Please refer to these great repositories.
