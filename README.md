@@ -63,7 +63,8 @@ You can find alinment images and synthesized audio clips during training. The te
 python3 inference.py \
     --ckpt_pth=<pth/to/model> \
     --img_pth=<pth/to/save/alignment> \
-    --wav_pth=<pth/to/save/wavs> \
+    --npy_pth=<pth/to/save/mel>
+    --wav_pth=<pth/to/save/wav> \
     --text=<text/to/synthesize>
 ```
 
