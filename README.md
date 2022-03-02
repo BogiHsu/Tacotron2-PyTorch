@@ -2,8 +2,7 @@
 Yet another PyTorch implementation of [Natural TTS Synthesis by Conditioning WaveNet on Mel Spectrogram Predictions](https://arxiv.org/pdf/1712.05884.pdf). The project is highly based on [these](#References). I made some modification to improve speed and performance of both training and inference.
 
 ## TODO
-- [ ] Add Colab demo.
-- [ ] Add some demo audio.
+- [x] Add Colab demo.
 - [x] Update README.
 - [x] Upload pretrained models.
 - [x] Compatible with [WaveGlow](https://github.com/NVIDIA/waveglow) and [Hifi-GAN](https://github.com/jik876/hifi-gan).
@@ -72,7 +71,7 @@ python3 inference.py \
 You can download pretrained models from [Realeases](https://github.com/BogiHsu/Tacotron2-PyTorch/releases). The hyperparameter for training is also in the directory. All the models were trained using 8 GPUs.
 
 ## Vocoder
-A vocoder is not implemented. But the model is compatible with [WaveGlow](https://github.com/NVIDIA/waveglow) and [Hifi-GAN](https://github.com/jik876/hifi-gan). Please refer to these great repositories.
+A vocoder is not implemented. But the model is compatible with [WaveGlow](https://github.com/NVIDIA/waveglow) and [Hifi-GAN](https://github.com/jik876/hifi-gan). Check the Colab demo for more information. [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/BogiHsu/Tacotron2-PyTorch/blob/master/inference.ipynb)
 
 ## References
 This project is highly based on the works below.
