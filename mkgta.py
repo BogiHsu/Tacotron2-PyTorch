@@ -51,7 +51,7 @@ def infer(wav_path, text, model):
 
 def save_mel(res, pth, name):
     out = os.path.join(pth, name)
-    np.save(out, res.T)
+    np.save(out, res)
 
 
 if __name__ == '__main__':
