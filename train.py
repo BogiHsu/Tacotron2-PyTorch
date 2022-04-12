@@ -56,8 +56,9 @@ def train(args):
     # build model
     model = Tacotron2()
     mode(model, True)
-    model = torch.nn.parallel.DistributedDataParallel(
-        model, device_ids = [local_rank])
+    if n_gpu > 1:
+        model = torch.nn.parallel.DistributedDataParallel(
+            model, device_ids = [local_rank])
     optimizer = torch.optim.Adam(model.parameters(), lr = hps.lr,
                                 betas = hps.betas, eps = hps.eps,
                                 weight_decay = hps.weight_decay)
